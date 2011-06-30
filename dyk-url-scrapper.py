@@ -1,5 +1,4 @@
 ''' This file gets the archive page urls from the DYK Recent Additions page'''
-import os
 import urllib2
 
 import BeautifulSoup
@@ -28,31 +27,35 @@ def get_urls():
     
 def download_html(count,skip):
     ''' This function dowloads the htmlpages of given count '''
-    print os.listdir(".")
     logfile = open("urls.txt", "r")
     
     for i in range(count):
-        if i < skip:
-            continue
         line = logfile.readline()
-        url = "http://en.wikipedia.org" + line.replace("\n","")
-        line = line.replace("/wiki/Wikipedia:Recent_additions/","").replace("\n","")
-        line = line.replace("/","-")+".html"
-        opener = urllib2.build_opener()
-        opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-        f = opener.open(url)
-        soup = BeautifulSoup.BeautifulSoup(f.read())
-        html = open(line,"w+")
-        html.write(str(soup))
-        html.close()
-        print line
-        f.close()
-        
+        if i >= skip:            
+            url = "http://en.wikipedia.org" + line.replace("\n","")
+            line = line.replace("/wiki/Wikipedia:Recent_additions/","").replace("\n","")
+            line = line.replace("/","-")+".html"
+            print line
+            opener = urllib2.build_opener()
+            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+            f = opener.open(url)
+            print f.info()
+            print "Downloading...."
+            soup = BeautifulSoup.BeautifulSoup(f.read())
+            html = open(line,"w+")
+            html.write(str(soup))
+            html.close()
+            print line + " -> Finished"
+            f.close()
         
         
 def main():
+    # Uncomment the below line to get the urls of all archive pages
     #get_urls()
-    download_html(1,0)
+    #Uncomment the following line to download the html responses and
+    #save them as html files. Parameters(index,skip) 
+    #Note: skip skips first "skip" no.of files
+    #download_html(5,4)
         
 if __name__ == "__main__":
     main()
