@@ -8,14 +8,20 @@ def main():
     for i,line in enumerate(unifile):
         line = line.strip("\n")
         #print type(line)
-        '''s0 = unicode(line)
+        s0 = unicode(line)
+        print s0
         s1 = s0.encode('ascii')
+        print repr(s1)
         s2 = urllib.unquote(s1)
+        print repr(s2)
+        print type(s2)
         s3 = s2.decode('utf-8')
-        print s3'''
+        print s3
+        print '\n'
+        '''
         print urllib.unquote(unicode(line).encode('ascii')).decode('utf-8')
-        #print line+" -> "+urllib.unquote(line)
-        if i>10:
+        #print line+" -> "+urllib.unquote(line)'''
+        if i>5:
             break
         
 
