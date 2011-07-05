@@ -26,7 +26,7 @@ def main():
                 link = li.b.a["href"]
             except TypeError:
                 link = li.find("a")["href"]
-            link = urllib.quote(link.replace("/wiki/",""))
+            link = link.replace("/wiki/","")
             #title = urllib.unquote(link)
             content = unicode(li).replace(",",";")
             csvfile.write(fil.replace(".html","-")+str(index)+","+link+","+content+"\n")
