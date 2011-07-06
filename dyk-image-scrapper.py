@@ -7,6 +7,40 @@ import codecs
 import BeautifulSoup
 
 directory = "hookhtmls"
+
+def analyser():
+    files = os.listdir(directory)
+    for fil in files:
+        print fil
+        html = open(os.path.join(directory,fil), "r")
+        soup = BeautifulSoup.BeautifulSoup(html.read())
+        #h3 = soup.find('h3')
+        div = soup.findAll('div',
+                          attrs={'style':'float:right;margin-left:0.5em;'})
+        print 'With Semicolon:',len(div)
+        imagecount = 0
+        for di in div:
+            try:
+                img = di.find('img')
+                if img != None:
+                    imagecount += 1
+            except:
+                pass
+        print 'Images:',imagecount
+        imagecount = 0
+        div = soup.findAll('div',
+                          attrs={'style':'float:right;margin-left:0.5em'})
+        print 'Without Semicolon:',len(div)
+        for di in div:
+            try:
+                img = di.find('img')
+                if img != None:
+                    imagecount += 1
+            except:
+                pass
+        print 'Images:',imagecount
+        
+        
         
 
 def main():
@@ -55,4 +89,5 @@ def main():
 
         
 if __name__ == "__main__":
-    main()
+    #main()
+    analyser()
