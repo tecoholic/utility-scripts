@@ -13,7 +13,7 @@ directory = "hookhtmls"
 def newMain():
     ''' new Scrapper that would scarp image data along with it '''
     hookfile = codecs.open("hook.csv", mode="w+", encoding='utf-8')
-    hookfile.write("sno,identifier,title,link,text\n")
+    hookfile.write("sno,identifier,title,link,content\n")
     sno = 1
     files = os.listdir(directory)
     for fil in files:

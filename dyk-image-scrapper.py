@@ -43,8 +43,8 @@ def analyser():
         
         
 
-def main():
-    ''' test main '''
+def scraper(selector):
+    '''this function scrapes the image data and writes it to the csv file'''
     sno = 1
     files = os.listdir(directory)
     imagefile = codecs.open("images.csv", encoding='utf-8', mode='w+')
@@ -55,7 +55,7 @@ def main():
         soup = BeautifulSoup.BeautifulSoup(html.read())
         h3 = soup.find('h3')
         div = h3.findNext('div',
-                          attrs={'style':'float:right;margin-left:0.5em;'})
+                          attrs={'style' : selector})
         #print div
         while div != None:    
             li = div.findNext("li",
@@ -85,7 +85,11 @@ def main():
     imagefile.close()
                 
                 
-
+def main():
+    ''' the main function to do the scrapping '''
+    selectors=['float:right;margin-left:0.5em;','float:right;margin-left:0.5em']
+    for select in selectors:
+        scraper(select)
 
         
 if __name__ == "__main__":
