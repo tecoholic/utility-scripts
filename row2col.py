@@ -1,4 +1,4 @@
-#!/usr/lib/python2.7
+#!/usr/bin/python
 '''
 Python Script to convert the rows to columns of a CSV file
 '''
@@ -10,8 +10,6 @@ def row2col(filename):
     fileLines = csvFile.readlines()
     csvFile.close()
 
-    #newCSVfile = open(filename, "w")
-    
     newFileLines = []
     for line in fileLines[0].split(","):
         newline = [line.strip("\n")]
