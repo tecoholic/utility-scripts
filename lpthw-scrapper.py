@@ -6,7 +6,7 @@ from BeautifulSoup import BeautifulSoup as bs
 
 # Meta Variables
 __filename__ = "lpthw-scrapper.py"
-__version__ = 0.1
+__version__ = 0.2
 __desc__ = "A scrapper program to automatically download the html pages of\
         Learn Python The Hard Way"
 __author__ = "tecoholic"
@@ -41,6 +41,7 @@ def download():
     opener.addheaders = [("User-agent" , "Mozilla/5.0")]
     
     # index.html
+    print "Downloading: index.html"
     link = opener.open(url)
     homepage = link.read()
     indexfile = open(os.path.join(folder, "index.html"), "w")
@@ -51,7 +52,9 @@ def download():
     # other files
     soup = bs(homepage)
     pagelis = soup.findAll("li", {"class" : "toctree-l1"})
-    for li in pagelis:
+    for i,li in enumerate(pagelis):
+        print "Downloading ["+str(i+1)+" of "+str(len(pagelis))+"]: "\
+                +li.text
         newlink = opener.open(url+li.a["href"])
         newfile = open(os.path.join(folder,li.a["href"]), "w")
         newfile.write(process_html(newlink.read()))
@@ -63,6 +66,7 @@ def download():
     for cs in css:
         cslink = opener.open(url+cs["href"])
         path,fil = os.path.split(url+cs["href"])
+        print "Downloading: "+fil
         csfile = open(os.path.join(cssfolder, fil), "w")
         csfile.write(cslink.read())
         csfile.close()
