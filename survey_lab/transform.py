@@ -27,22 +27,16 @@ def main():
   for row in reader:
     newX = translateX(float(row['EAST']), float(row['NORTH']))
     newY = translateY(float(row['EAST']), float(row['NORTH']))
-    if row['STATION'] == 'STATION5':
-      print row
-      print float(row["NORTH"])," -> ",newY
-      print float(row["EAST"])," -> ",newX
-    row['EAST'] = newX
-    row['NORTH'] = newY
+    row['EAST'] = "%.3f" % newX
+    row['NORTH'] = "%.3f" % newY
     writer.writerow(row)
 
 if __name__ == '__main__':
   if len(sys.argv)> 2:
     x = float(sys.argv[1])
     y = float(sys.argv[2])
-    print "Executing from commandline:"
     print translateX(x,y),translateY(x,y)
   elif len(sys.argv) == 1:
-    print "Executing from file:"
     main()
   else:
     print "Usage: python transform.py [Easting] [Northing]"
