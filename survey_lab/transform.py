@@ -18,7 +18,7 @@ def translateX( x, y ):
   return xorg + ((x - xorg) * math.cos(angle)) - ((y - yorg) * math.sin(angle))
 
 def translateY( x, y ):
-  return yorg + ((yorg - y) * math.cos(angle)) - ((x - xorg) * math.sin(angle))
+  return yorg + ((y - yorg) * math.cos(angle)) + ((x - xorg) * math.sin(angle))
 
 def main():
   reader = csv.DictReader(open(input_file, 'rb'))
