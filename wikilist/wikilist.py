@@ -35,9 +35,12 @@ def prepare_json(project):
     data = []
     with codecs.open('list.csv', mode='r', encoding='utf-8') as csvfile:
         header = csvfile.readline()
+        cols= header.split(',')
         for line in csvfile.readlines():
             row = line.split(u',')
-            data.append(dict(lang=row[1], prefix=row[2], loclang=row[10]))
+            data.append(dict(lang=row[cols.index('lang')],
+                prefix=row[cols.index('prefix')],
+                loclang=row[cols.index('loclang')]))
     with codecs.open(project+'.json', mode='w', encoding='utf-8') as jsonfile:
         jsonfile.write(json.dumps(data))
 
